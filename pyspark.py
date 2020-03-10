@@ -1,5 +1,6 @@
 import statistics
 import random
+import functools
 from collections import defaultdict
 
 # See PySpark API docs
@@ -44,6 +45,19 @@ class RDD(object):
         quantity = int(self.count() * proportion)
         res = random.sample(self.dataset, quantity)
         return RDD(res)
+
+    def groupByKey(self):
+        # Group values into lists
+        groups = defaultdict(list)
+        for k, v in self.dataset:
+            groups[k].append(v)
+
+        # Create tuples from dict
+        groups_tuples = []
+        for k, v in groups.items():
+            groups_tuples.append((k, v))
+
+        return RDD(groups_tuples)
 
     # Actions
     def collect(self):
@@ -100,3 +114,9 @@ class RDD(object):
     def foreach(self, f):
         for d in self.dataset:
             f(d)
+
+    def reduce(self, f):
+        return functools.reduce(f, self.dataset)
+
+    def reduceByKey(self, f):
+        return self.groupByKey().map(lambda x: (x[0], f(x[1]))).collect()

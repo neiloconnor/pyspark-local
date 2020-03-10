@@ -50,6 +50,10 @@ class TestRDD(object):
         res = self.rdd.sample(False, 0.7, 7)
         assert res.count() == 2
 
+    def test_groupByKey(self):
+        res = self.rdd.groupByKey()
+        assert res.collect() == [('a', [7, 2]), ('b', [2])]
+
     # -------
     # Actions
     # -------
@@ -101,3 +105,9 @@ class TestRDD(object):
     def test_foreach(self):
         # Very difficult to test foreach because it returns None
         pass
+
+    def test_reduce(self):
+        assert self.rdd.values().reduce(lambda x,y: x+y) == 11
+
+    def test_reduceByKey(self):        
+        assert self.rdd.reduceByKey(sum) == [('a',9), ('b',2)]
