@@ -44,6 +44,12 @@ class TestRDD(object):
     def test_count(self):
         assert self.rdd.count() == 3
 
+    def test_countByValue(self):
+        assert self.rdd.countByValue() == {('a',7):1,('a',2):1,('b',2):1}
+
+    def test_countByKey(self):
+        assert self.rdd.countByKey() == {'a':2, 'b':1}
+
     
 
     

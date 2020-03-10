@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 # See PySpark API docs
 # https://spark.apache.org/docs/latest/api/python/index.html
 
@@ -37,4 +39,15 @@ class RDD(object):
 
     def count(self):
         return len(self.dataset)
+
+    def countByValue(self):
+        counts = defaultdict(int)
+        for obj in self.dataset:
+            counts[obj] += 1
+        return counts
+
+    def countByKey(self):
+        keys_rdd = self.map(lambda x: x[0])
+        return keys_rdd.countByValue()
+
 
