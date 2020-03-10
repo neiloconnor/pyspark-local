@@ -12,3 +12,6 @@ rdd = sc.parallelize([('a',7),('a',2),('b',2)])
 rdd2 = sc.parallelize([('a',2),('d',1),('b',1)])
 rdd3 = sc.parallelize(range(100))
 rdd4 = sc.parallelize([("a",["x","y","z"]),  ("b",["p", "r"])])
+
+# External Data
+textfile_rdd = sc.textFile('example_data.txt')
