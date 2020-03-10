@@ -18,6 +18,23 @@ class RDD(object):
     def __init__(self, dataset):
         self.dataset = dataset
 
+    # Transformations
+    def map(self, f):
+        res = list(map(f, self.dataset))
+        return RDD(res)
+
+    def filter(self, f):
+        res = list(filter(f, self.dataset))
+        return RDD(res)
+
+    # Actions
     def collect(self):
+        print(self.dataset)
         return self.dataset
+
+    def getNumPartitions(self):
+        return 10
+
+    def count(self):
+        return len(self.dataset)
 
