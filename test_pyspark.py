@@ -81,3 +81,12 @@ class TestRDD(object):
 
     def test_variance(self):
         assert self.rdd.values().variance() == pytest.approx(5.55, 0.01)
+
+    def test_first(self):
+        assert self.rdd.first() == ('a', 7)
+
+    def test_take(self):
+        assert self.rdd.take(2) == [('a', 7), ('a', 2)]
+
+    def test_top(self):
+        assert self.rdd.values().top(1) == [7]

@@ -80,3 +80,13 @@ class RDD(object):
     def variance(self):
         # variance function samples the dataset so use pvariance
         return statistics.pvariance(self.dataset)
+
+    def first(self):
+        return self.dataset[0]
+
+    def take(self, num):
+        return self.dataset[:num]
+
+    def top(self, num):
+        s = sorted(self.dataset, reverse=True)
+        return s[:num]
