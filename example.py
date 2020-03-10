@@ -15,3 +15,5 @@ rdd4 = sc.parallelize([("a",["x","y","z"]),  ("b",["p", "r"])])
 
 # External Data
 textfile_rdd = sc.textFile('example_data.txt')
+
+rdd.map(lambda x: x[0]).filter(lambda x: x=='b').collect()
