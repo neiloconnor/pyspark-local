@@ -1,3 +1,4 @@
+import pytest
 from pyspark import SparkContext
 
 class TestSparkContext(object):
@@ -38,6 +39,10 @@ class TestRDD(object):
         res = self.rdd.keys().collect()
         assert res == ['a', 'a', 'b']
 
+    def test_values(self):
+        res = self.rdd.values().collect()
+        assert res == [7, 2, 2]
+
     # -------
     # Actions
     # -------
@@ -59,4 +64,20 @@ class TestRDD(object):
     def test_isEmpty(self):
         assert self.rdd.isEmpty() == False
 
-    
+    def test_sum(self):
+        assert self.rdd.values().sum() == 11
+
+    def test_max(self):
+        assert self.rdd.values().max() == 7
+
+    def test_min(self):
+        assert self.rdd.values().min() == 2
+
+    def test_mean(self):
+        assert self.rdd.values().mean() == pytest.approx(3.66, 0.01)
+
+    def test_stdev(self):
+        assert self.rdd.values().stdev() == pytest.approx(2.35, 0.01)
+
+    def test_variance(self):
+        assert self.rdd.values().variance() == pytest.approx(5.55, 0.01)

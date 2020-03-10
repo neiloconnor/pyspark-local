@@ -1,3 +1,4 @@
+import statistics
 from collections import defaultdict
 
 # See PySpark API docs
@@ -35,6 +36,9 @@ class RDD(object):
     def keys(self):
         return self.map(lambda x: x[0])
 
+    def values(self):
+        return self.map(lambda x: x[1])
+
     # Actions
     def collect(self):
         return self.dataset
@@ -57,4 +61,22 @@ class RDD(object):
     def isEmpty(self):
         return self.dataset == []
 
+    def sum(self):
+        return sum(self.dataset)
+        
+    def max(self):
+        return max(self.dataset)
+        
+    def min(self):
+        return min(self.dataset)
+        
+    def mean(self):
+        return statistics.mean(self.dataset)
+    
+    def stdev(self):
+        # stdev function samples the dataset so use pstdev
+        return statistics.pstdev(self.dataset)
 
+    def variance(self):
+        # variance function samples the dataset so use pvariance
+        return statistics.pvariance(self.dataset)
