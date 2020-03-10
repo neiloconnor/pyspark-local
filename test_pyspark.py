@@ -54,6 +54,14 @@ class TestRDD(object):
         res = self.rdd.groupByKey()
         assert res.collect() == [('a', [7, 2]), ('b', [2])]
 
+    def test_sortBy(self):
+        res = self.rdd.sortBy(lambda x: x[1])
+        assert res.collect() == [('a',2), ('b',2), ('a',7)]
+
+    def test_sortByKey(self):
+        res = self.rdd.sortByKey()
+        assert res.collect() == [('a',7), ('a',2), ('b',2)]
+
     # -------
     # Actions
     # -------

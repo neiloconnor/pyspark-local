@@ -59,6 +59,13 @@ class RDD(object):
 
         return RDD(groups_tuples)
 
+    def sortBy(self, f):
+        res = sorted(self.dataset, key=f)
+        return RDD(res)
+
+    def sortByKey(self):
+        return self.sortBy(lambda x: x[0])
+
     # Actions
     def collect(self):
         return self.dataset
