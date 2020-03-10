@@ -34,6 +34,10 @@ class TestRDD(object):
         res = self.rdd.filter(lambda x: x[0] == 'a').collect()
         assert res == [('a',7), ('a',2)]
 
+    def test_keys(self):
+        res = self.rdd.keys().collect()
+        assert res == ['a', 'a', 'b']
+
     # -------
     # Actions
     # -------
@@ -54,7 +58,5 @@ class TestRDD(object):
 
     def test_isEmpty(self):
         assert self.rdd.isEmpty() == False
-
-    
 
     

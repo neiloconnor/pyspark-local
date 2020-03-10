@@ -32,9 +32,11 @@ class RDD(object):
         res = list(filter(f, self.dataset))
         return RDD(res)
 
+    def keys(self):
+        return self.map(lambda x: x[0])
+
     # Actions
     def collect(self):
-        print(self.dataset)
         return self.dataset
 
     def getNumPartitions(self):
@@ -50,8 +52,7 @@ class RDD(object):
         return counts
 
     def countByKey(self):
-        keys_rdd = self.map(lambda x: x[0])
-        return keys_rdd.countByValue()
+        return self.keys().countByValue()
 
     def isEmpty(self):
         return self.dataset == []
