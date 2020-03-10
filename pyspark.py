@@ -1,4 +1,5 @@
 import statistics
+import random
 from collections import defaultdict
 
 # See PySpark API docs
@@ -38,6 +39,11 @@ class RDD(object):
 
     def values(self):
         return self.map(lambda x: x[1])
+
+    def sample(self, with_replacement, proportion, random_seed):
+        quantity = int(self.count() * proportion)
+        res = random.sample(self.dataset, quantity)
+        return RDD(res)
 
     # Actions
     def collect(self):

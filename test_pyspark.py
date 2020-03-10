@@ -43,6 +43,13 @@ class TestRDD(object):
         res = self.rdd.values().collect()
         assert res == [7, 2, 2]
 
+    def test_sample(self):
+        res = self.rdd.sample(False, 0.5, 7)
+        assert res.count() == 1
+
+        res = self.rdd.sample(False, 0.7, 7)
+        assert res.count() == 2
+
     # -------
     # Actions
     # -------
