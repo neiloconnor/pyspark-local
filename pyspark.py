@@ -14,7 +14,7 @@ class SparkContext(object):
         return RDD(dataset)
 
     def textFile(self, filename):
-        with open(filename) as f:
+        with open(filename, 'r') as f:
             lines = f.read().splitlines()
         return RDD(lines)
 
@@ -127,3 +127,13 @@ class RDD(object):
 
     def reduceByKey(self, f):
         return self.groupByKey().map(lambda x: (x[0], f(x[1]))).collect()
+
+    
+    def saveAsTextFile(self, filename):
+        with open(filename, 'w') as f:
+            for obj in self.dataset:
+                if isinstance(obj, tuple):
+                    line = ','.join([str(x) for x in obj])
+                else: 
+                    line = str(obj)
+                f.write(line + '\n')                

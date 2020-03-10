@@ -1,4 +1,5 @@
 import pytest
+import os
 from pyspark import SparkContext
 
 class TestSparkContext(object):
@@ -119,3 +120,11 @@ class TestRDD(object):
 
     def test_reduceByKey(self):        
         assert self.rdd.reduceByKey(sum) == [('a',9), ('b',2)]
+
+    def test_saveAsTextFile(self):
+        filename = 'output.txt'
+        self.rdd.saveAsTextFile(filename)
+        with open(filename, 'r') as f:
+            lines = f.read().splitlines()
+            assert lines[0] == 'a,7'
+        os.remove(filename)
