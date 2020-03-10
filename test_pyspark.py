@@ -97,3 +97,7 @@ class TestRDD(object):
 
     def test_top(self):
         assert self.rdd.values().top(1) == [7]
+
+    def test_foreach(self):
+        # Very difficult to test foreach because it returns None
+        pass

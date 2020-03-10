@@ -96,3 +96,7 @@ class RDD(object):
     def top(self, num):
         s = sorted(self.dataset, reverse=True)
         return s[:num]
+
+    def foreach(self, f):
+        for d in self.dataset:
+            f(d)
