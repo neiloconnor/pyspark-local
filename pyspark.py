@@ -15,6 +15,9 @@ class SparkContext(object):
             lines = f.read().splitlines()
         return RDD(lines)
 
+    def stop(self):
+        return True
+
 
 class RDD(object):
     def __init__(self, dataset):

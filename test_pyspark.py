@@ -15,6 +15,8 @@ class TestSparkContext(object):
         assert rdd.count() == 11
         assert rdd.collect()[4] == 'scrambled it to make a type specimen book. It has'
 
+    def test_stop(self):
+        assert self.sc.stop() == True
 
 class TestRDD(object):
 
