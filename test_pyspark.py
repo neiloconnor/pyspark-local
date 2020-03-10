@@ -50,6 +50,9 @@ class TestRDD(object):
     def test_countByKey(self):
         assert self.rdd.countByKey() == {'a':2, 'b':1}
 
+    def test_isEmpty(self):
+        assert self.rdd.isEmpty() == False
+
     
 
     

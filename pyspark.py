@@ -50,4 +50,7 @@ class RDD(object):
         keys_rdd = self.map(lambda x: x[0])
         return keys_rdd.countByValue()
 
+    def isEmpty(self):
+        return self.dataset == []
+
 
