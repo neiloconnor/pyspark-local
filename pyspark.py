@@ -31,6 +31,14 @@ class RDD(object):
         res = list(map(f, self.dataset))
         return RDD(res)
 
+    def flatMap(self, f):
+        list_of_lists_rdd = self.map(f)
+        res = []
+        for l in list_of_lists_rdd.dataset:
+            for v in l:
+                res.append(v)
+        return RDD(res)
+
     def filter(self, f):
         res = list(filter(f, self.dataset))
         return RDD(res)

@@ -32,6 +32,10 @@ class TestRDD(object):
         res = self.rdd.map(lambda x: x[0]).collect()
         assert res == ['a', 'a', 'b']
 
+    def test_flatMap(self):
+        res = self.rdd.flatMap(lambda x: x).collect()
+        assert res == ['a', 7, 'a', 2, 'b', 2]
+    
     def test_filter(self):
         res = self.rdd.filter(lambda x: x[0] == 'a').collect()
         assert res == [('a',7), ('a',2)]
