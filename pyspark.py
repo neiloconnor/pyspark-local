@@ -137,3 +137,9 @@ class RDD(object):
                 else: 
                     line = str(obj)
                 f.write(line + '\n')                
+
+
+if __name__ == "__main__":
+    # If run as a script to emulate pyspark shell
+    sc = SparkContext()
+    
