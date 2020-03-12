@@ -12,6 +12,11 @@ class TestSparkContext(object):
         assert rdd.count() == 3
         assert rdd.collect() == [('a',7), ('a',2), ('b',2)]
 
+    def test_parallelize_iterable(self):
+        rdd = self.sc.parallelize( range(5) )
+        assert rdd.count() == 5
+        assert rdd.collect() == [0, 1, 2, 3, 4]
+
     def test_textFile(self):
         rdd = self.sc.textFile('example_data.txt')
         assert rdd.count() == 11

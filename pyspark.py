@@ -2,6 +2,7 @@ import statistics
 import random
 import functools
 from collections import defaultdict
+from collections.abc import Iterable
 
 # See PySpark API docs
 # https://spark.apache.org/docs/latest/api/python/index.html
@@ -9,8 +10,10 @@ from collections import defaultdict
 class SparkContext(object):
     def __init__(self):
         pass
-
+    
     def parallelize(self, dataset):
+        if isinstance(dataset, Iterable):
+            dataset = list(dataset)
         return RDD(dataset)
 
     def textFile(self, filename):
