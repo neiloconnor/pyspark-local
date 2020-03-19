@@ -69,6 +69,9 @@ class RDD(object):
             groups_tuples.append((k, v))
 
         return RDD(groups_tuples)
+    
+    def reduceByKey(self, f):
+        return self.groupByKey().map(lambda x: (x[0], f(x[1])))
 
     def sortBy(self, f):
         res = sorted(self.dataset, key=f)
@@ -135,10 +138,6 @@ class RDD(object):
 
     def reduce(self, f):
         return functools.reduce(f, self.dataset)
-
-    def reduceByKey(self, f):
-        return self.groupByKey().map(lambda x: (x[0], f(x[1]))).collect()
-
     
     def saveAsTextFile(self, filename):
         with open(filename, 'w') as f:

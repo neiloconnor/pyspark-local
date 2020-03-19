@@ -63,6 +63,10 @@ class TestRDD(object):
     def test_groupByKey(self):
         res = self.rdd.groupByKey()
         assert res.collect() == [('a', [7, 2]), ('b', [2])]
+    
+    def test_reduceByKey(self):
+        res = self.rdd.reduceByKey(sum)        
+        assert res.collect() == [('a',9), ('b',2)]
 
     def test_sortBy(self):
         res = self.rdd.sortBy(lambda x: x[1])
@@ -126,9 +130,6 @@ class TestRDD(object):
 
     def test_reduce(self):
         assert self.rdd.values().reduce(lambda x,y: x+y) == 11
-
-    def test_reduceByKey(self):        
-        assert self.rdd.reduceByKey(sum) == [('a',9), ('b',2)]
 
     def test_saveAsTextFile(self):
         filename = 'output.txt'
