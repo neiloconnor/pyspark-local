@@ -60,6 +60,10 @@ class TestRDD(object):
         res = self.rdd.sample(False, 0.7, 7)
         assert res.count() == 2
 
+    def test_groupBy(self):
+        res = self.rdd.groupBy(lambda x: x[1])
+        assert res.collect() == [(7, [('a', 7)]), (2, [('a', 2), ('b', 2)])]
+
     def test_groupByKey(self):
         res = self.rdd.groupByKey()
         assert res.collect() == [('a', [7, 2]), ('b', [2])]

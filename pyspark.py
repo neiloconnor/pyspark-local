@@ -57,6 +57,19 @@ class RDD(object):
         res = random.sample(self.dataset, quantity)
         return RDD(res)
 
+    def groupBy(self, f):
+        # Group records into lists keyed by the result of function f
+        groups = defaultdict(list)
+        for obj in self.dataset:
+            groups[f(obj)].append(obj)
+
+        # Create tuples from dict
+        groups_tuples = []
+        for k, v in groups.items():
+            groups_tuples.append((k, v))
+
+        return RDD(groups_tuples)
+
     def groupByKey(self):
         # Group values into lists
         groups = defaultdict(list)
