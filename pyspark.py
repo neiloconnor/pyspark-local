@@ -42,6 +42,10 @@ class RDD(object):
                 res.append(v)
         return RDD(res)
 
+    def mapValues(self, f):
+        # Pass each value in the key-value pair RDD through a map function without changing the keys
+        return self.map(lambda x: (x[0], f(x[1])))
+
     def filter(self, f):
         res = list(filter(f, self.dataset))
         return RDD(res)
