@@ -72,7 +72,7 @@ class TestRDD(object):
         assert res.collect() == [('a', [7, 2]), ('b', [2])]
     
     def test_reduceByKey(self):
-        res = self.rdd.reduceByKey(sum)        
+        res = self.rdd.reduceByKey(lambda x, y: x+y)        
         assert res.collect() == [('a',9), ('b',2)]
 
     def test_sortBy(self):

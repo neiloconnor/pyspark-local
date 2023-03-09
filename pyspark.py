@@ -88,7 +88,17 @@ class RDD(object):
         return RDD(groups_tuples)
     
     def reduceByKey(self, f):
-        return self.groupByKey().map(lambda x: (x[0], f(x[1])))
+        # First group by key
+        groups = self.groupByKey()
+
+        # For each key reduce all the values using the function provided
+        groups_reduction = []
+        for (k, v) in groups.collect():
+            reduction = functools.reduce(f, v)
+            groups_reduction.append((k, reduction))
+
+        # Convert the list of tuples into a new RDD before returning it
+        return RDD(groups_reduction)
 
     def sortBy(self, f):
         res = sorted(self.dataset, key=f)
