@@ -81,7 +81,23 @@ class TestRDD(object):
 
     def test_sortByKey(self):
         res = self.rdd.sortByKey()
-        assert res.collect() == [('a',7), ('a',2), ('b',2)]
+        assert res.collect() == [('a',7), ('a',2), ('b',2)]    
+
+    def test_join_individual_values(self):
+        sc = SparkContext()
+        leftRDD = sc.parallelize([('a',1), ('b',2), ('c',3)])
+        rightRDD = sc.parallelize([('a',10), ('b',20), ('c',30)])
+
+        res = leftRDD.join(rightRDD)
+        assert res.collect() == [('a',(1,10)), ('b',(2,20)), ('c',(3, 30))]
+    
+    def test_join_tuple_values(self):
+        sc = SparkContext()
+        leftRDD = sc.parallelize([('a',(1,10)), ('b',(2,20)), ('c',(3,30))])
+        rightRDD = sc.parallelize([('a',100), ('b',200), ('c',300)])
+
+        res = leftRDD.join(rightRDD)
+        assert res.collect() == [('a',(1,10,100)), ('b',(2,20,200)), ('c',(3, 30,300))]
 
     # -------
     # Actions

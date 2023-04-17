@@ -106,6 +106,29 @@ class RDD(object):
 
     def sortByKey(self):
         return self.sortBy(lambda x: x[0])
+    
+    def join(self, other):
+        # Return an RDD containing all pairs of elements with matching keys in self and other
+        joined = []
+        for k, v in self.dataset:
+            # Check for a match in other
+            for other_k, other_v in other.dataset:
+                if k == other_k:
+                    # Ensure that both values are tuples so they can be joined
+                    if not isinstance(v, Iterable):
+                        v_tuple = (v, )
+                    else:
+                        v_tuple = v
+
+                    if not isinstance(other_v, Iterable):
+                        other_v_tuple = (other_v, )
+                    else:
+                        other_v_tuple = other_v
+
+                    # Both values are now tuples, so join them
+                    joined.append( (k, v_tuple + other_v_tuple) )
+                    break
+        return RDD(joined)
 
     # Actions
     def collect(self):
