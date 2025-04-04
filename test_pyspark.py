@@ -150,6 +150,20 @@ class TestRDD():
         with pytest.raises(NotImplementedError):
             self.rdd.keyBy()
 
+    def test_subtract(self):
+        sc = SparkContext()
+        rdd1 = sc.parallelize([('a', 10), ('a', 11), ('a', 10)])
+        rdd2 = sc.parallelize([('a', 11)])
+        result_rdd = rdd1.subtract(rdd2)
+        assert result_rdd.count() == 2
+
+    def test_subtractByKey(self):
+        sc = SparkContext()
+        rdd1 = sc.parallelize([('a', 10), ('a', 11), ('a', 10)])
+        rdd2 = sc.parallelize([('a', 11)])
+        result_rdd = rdd1.subtractByKey(rdd2)
+        assert result_rdd.count() == 0
+
     # -------
     # Actions
     # -------

@@ -181,6 +181,14 @@ class RDD():
     def keyBy(self, *args, **kwargs):        
         raise NotImplementedError('keyBy is not currently supported by pyspark-local') 
 
+    def subtract(self, other_rdd):
+        # Return each rdd value not contained in other_rdd
+        remainder = [x for x in self.dataset if x not in other_rdd.dataset]
+        return RDD(remainder)
+    
+    def subtractByKey(self, other_rdd):
+        remainder = [x for x in self.dataset if x[0] not in other_rdd.keys().collect()]
+        return RDD(remainder)
 
     # Actions
     def collect(self):
