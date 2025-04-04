@@ -9,7 +9,15 @@ from collections.abc import Iterable
 
 class SparkContext():
     def __init__(self, *args, **kwargs):
-        pass
+        self.version = 'pyspark-local'
+        self.pythonVer = '3.x'
+        self.master = '//master-url'
+        self.sparkHome = '/usr/bin/sparkHome'
+        self.sparkUser = lambda : 'root'
+        self.appName = 'default'
+        self.applicationId = '1'
+        self.defaultParallelism = 2
+        self.defaultMinPartitions = 2
     
     def parallelize(self, dataset):
         if isinstance(dataset, Iterable):
