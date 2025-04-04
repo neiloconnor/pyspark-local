@@ -32,6 +32,18 @@ class SparkContext():
     def stop(self):
         return True
 
+class SparkConf():
+    def __init__(self):
+        pass
+
+    def setMaster(self, master_url):
+        return self # Return self for method chaining
+    
+    def setAppName(self, name):
+        return self # Return self for method chaining
+    
+    def set(self, key, value):
+        return self # Return self for method chaining
 
 class RDD():
     def __init__(self, dataset):

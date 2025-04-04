@@ -1,14 +1,14 @@
 import pytest
 import os
-from pyspark import SparkContext
+from pyspark import SparkContext, SparkConf
 
-class TestSparkContext(object):
+class TestSparkContext():
  
     def setup_method(self):
         self.sc = SparkContext()
 
     def test_spark_context_params(self):
-        new_sc = SparkContext(master='local[2]')
+        SparkContext(master='local[2]')
  
     def test_parallelize(self):
         rdd = self.sc.parallelize( [('a',7), ('a',2), ('b',2)] )
@@ -28,7 +28,17 @@ class TestSparkContext(object):
     def test_stop(self):
         assert self.sc.stop() == True
 
-class TestRDD(object):
+class TestSparkConf():
+
+    def test_function_chaining(self):
+        conf = (SparkConf()
+            .setMaster("local")
+            .setAppName("My app")
+            .set("spark.executor.memory", "1g"))
+        sc = SparkContext(conf = conf)
+        assert sc.master == '//master-url'
+
+class TestRDD():
 
     def setup_method(self):
         self.rdd = SparkContext().parallelize( [('a',7), ('a',2), ('b',2)] )
