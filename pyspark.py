@@ -201,6 +201,9 @@ class RDD():
     def variance(self):
         # variance function samples the dataset so use pvariance
         return statistics.pvariance(self.dataset)
+    
+    def histogram(self, bins):
+        raise NotImplementedError('histogram is not currently supported by pyspark-local')
 
     def first(self):
         return self.dataset[0]

@@ -47,6 +47,7 @@ class TestRDD():
 
     def setup_method(self):
         self.rdd = SparkContext().parallelize( [('a',7), ('a',2), ('b',2)] )
+        self.rdd3 = SparkContext().parallelize(range(100))
 
     # ---------------
     # Transformations
@@ -155,6 +156,10 @@ class TestRDD():
 
     def test_variance(self):
         assert self.rdd.values().variance() == pytest.approx(5.55, 0.01)
+
+    def test_histogram(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd3.histogram(3)
 
     def test_first(self):
         assert self.rdd.first() == ('a', 7)
