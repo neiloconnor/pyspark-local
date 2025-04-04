@@ -162,6 +162,9 @@ class RDD():
                     joined.append( (k, v_tuple + other_v_tuple) )
                     break
         return RDD(joined)
+    
+    def distinct(self):
+        return RDD(set(self.dataset))
 
     # Actions
     def collect(self):

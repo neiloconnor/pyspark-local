@@ -47,7 +47,6 @@ class TestRDD():
 
     def setup_method(self):
         self.rdd = SparkContext().parallelize( [('a',7), ('a',2), ('b',2)] )
-        self.rdd3 = SparkContext().parallelize(range(100))
 
     # ---------------
     # Transformations
@@ -66,6 +65,9 @@ class TestRDD():
 
     def test_mapValues(self):
         res = self.rdd.groupByKey().mapValues(sum).collect()
+        assert len(res) == 2
+        assert res[0][0] == 'a'
+        assert res[0][1] == 9
     
     def test_filter(self):
         res = self.rdd.filter(lambda x: x[0] == 'a').collect()
@@ -122,6 +124,12 @@ class TestRDD():
         res = leftRDD.join(rightRDD)
         assert res.collect() == [('a',(1,10,100)), ('b',(2,20,200)), ('c',(3, 30,300))]
 
+    def test_distinct(self):
+        sc = SparkContext()
+        rdd = sc.parallelize([('a', 10), ('a', 11), ('a', 10)])
+        distinct_rdd = rdd.distinct()
+        assert distinct_rdd.count() == 2
+
     # -------
     # Actions
     # -------
@@ -163,7 +171,7 @@ class TestRDD():
 
     def test_histogram(self):
         with pytest.raises(NotImplementedError):
-            self.rdd3.histogram(3)
+            self.rdd.histogram(3)
 
     def test_first(self):
         assert self.rdd.first() == ('a', 7)
