@@ -129,6 +129,26 @@ class TestRDD():
         rdd = sc.parallelize([('a', 10), ('a', 11), ('a', 10)])
         distinct_rdd = rdd.distinct()
         assert distinct_rdd.count() == 2
+ 
+    def test_aggregate(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.aggregate()
+    
+    def test_aggregateByKey(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.aggregateByKey()
+    
+    def test_fold(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.fold()
+
+    def test_foldByKey(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.foldByKey()
+
+    def test_keyBy(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.keyBy()
 
     # -------
     # Actions

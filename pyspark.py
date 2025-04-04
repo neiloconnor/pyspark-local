@@ -165,6 +165,22 @@ class RDD():
     
     def distinct(self):
         return RDD(set(self.dataset))
+    
+    def aggregate(self, *args, **kwargs):        
+        raise NotImplementedError('aggregate is not currently supported by pyspark-local') 
+    
+    def aggregateByKey(self, *args, **kwargs):        
+        raise NotImplementedError('aggregateByKey is not currently supported by pyspark-local') 
+
+    def fold(self, *args, **kwargs):        
+        raise NotImplementedError('fold is not currently supported by pyspark-local') 
+
+    def foldByKey(self, *args, **kwargs):        
+        raise NotImplementedError('foldByKey is not currently supported by pyspark-local') 
+
+    def keyBy(self, *args, **kwargs):        
+        raise NotImplementedError('keyBy is not currently supported by pyspark-local') 
+
 
     # Actions
     def collect(self):
