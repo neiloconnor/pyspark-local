@@ -21,7 +21,7 @@ class TestSparkContext():
         assert rdd.collect() == [0, 1, 2, 3, 4]
 
     def test_textFile(self):
-        rdd = self.sc.textFile('example_data.txt')
+        rdd = self.sc.textFile('example_data/sentences.txt')
         assert rdd.count() == 11
         assert rdd.collect()[4] == 'scrambled it to make a type specimen book. It has'
 
