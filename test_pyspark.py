@@ -6,6 +6,9 @@ class TestSparkContext(object):
  
     def setup_method(self):
         self.sc = SparkContext()
+
+    def test_spark_context_params(self):
+        new_sc = SparkContext(master='local[2]')
  
     def test_parallelize(self):
         rdd = self.sc.parallelize( [('a',7), ('a',2), ('b',2)] )
