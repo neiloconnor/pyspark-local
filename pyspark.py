@@ -226,7 +226,14 @@ class RDD():
                     line = ','.join([str(x) for x in obj])
                 else: 
                     line = str(obj)
-                f.write(line + '\n')                
+                f.write(line + '\n')
+
+    def collectAsMap(self):
+        # Return key,value pairs as a dictionary
+        res = {}
+        for (k, v) in self.dataset:
+            res[k] = v
+        return res             
 
 
 if __name__ == "__main__":

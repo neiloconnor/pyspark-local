@@ -179,3 +179,8 @@ class TestRDD():
             lines = f.read().splitlines()
             assert lines[0] == 'a,7'
         os.remove(filename)
+
+    def test_collectAsMap(self):
+        res = self.rdd.collectAsMap()
+        assert len(res.keys()) == 2
+        assert res['b'] == 2
