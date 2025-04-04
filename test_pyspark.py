@@ -25,6 +25,11 @@ class TestSparkContext():
         assert rdd.count() == 11
         assert rdd.collect()[4] == 'scrambled it to make a type specimen book. It has'
 
+    def test_wholeTextFiles(self):
+        rdd = self.sc.wholeTextFiles('./example_data/')
+        assert rdd.count() == 1
+        assert rdd.first()[0] == './example_data/sentences.txt'
+        
     def test_stop(self):
         assert self.sc.stop() == True
 

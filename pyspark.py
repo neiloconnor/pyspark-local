@@ -1,3 +1,4 @@
+import os
 import statistics
 import random
 import functools
@@ -28,6 +29,15 @@ class SparkContext():
         with open(filename, 'r', encoding='UTF-8') as f:
             lines = f.read().splitlines()
         return RDD(lines)
+    
+    def wholeTextFiles(self, directory_name):
+        file_names = os.listdir(directory_name)
+        whole_files = []
+        for file_name in file_names:
+            path = directory_name + file_name
+            with open(path, 'r', encoding='UTF-8') as f:
+                whole_files.append((path, f.read()))
+        return RDD(whole_files)
 
     def stop(self):
         return True

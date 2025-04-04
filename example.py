@@ -14,7 +14,11 @@ rdd3 = sc.parallelize(range(100))
 rdd4 = sc.parallelize([("a",["x","y","z"]),  ("b",["p", "r"])])
 
 # External Data
-textfile_rdd = sc.textFile('example_data.txt')
+textfile_rdd = sc.textFile('./example_data/sentences.txt')
+print(f'Found { textfile_rdd.count() } lines of text in the file')
+
+wholefiles_rdd = sc.wholeTextFiles('./example_data/')
+print(f'Found { wholefiles_rdd.count() } files in the directory')
 
 rdd.map(lambda x: x[0]).filter(lambda x: x=='b').collect()
 
