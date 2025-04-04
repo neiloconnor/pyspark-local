@@ -59,10 +59,6 @@ class TestRDD():
         res = self.rdd.flatMap(lambda x: x).collect()
         assert res == ['a', 7, 'a', 2, 'b', 2]
 
-    def test_flatMapValues(self):
-        with pytest.raises(NotImplementedError):
-            self.rdd.flatMapValues(lambda x: x)
-
     def test_mapValues(self):
         res = self.rdd.groupByKey().mapValues(sum).collect()
         assert len(res) == 2
@@ -129,26 +125,6 @@ class TestRDD():
         rdd = sc.parallelize([('a', 10), ('a', 11), ('a', 10)])
         distinct_rdd = rdd.distinct()
         assert distinct_rdd.count() == 2
- 
-    def test_aggregate(self):
-        with pytest.raises(NotImplementedError):
-            self.rdd.aggregate()
-    
-    def test_aggregateByKey(self):
-        with pytest.raises(NotImplementedError):
-            self.rdd.aggregateByKey()
-    
-    def test_fold(self):
-        with pytest.raises(NotImplementedError):
-            self.rdd.fold()
-
-    def test_foldByKey(self):
-        with pytest.raises(NotImplementedError):
-            self.rdd.foldByKey()
-
-    def test_keyBy(self):
-        with pytest.raises(NotImplementedError):
-            self.rdd.keyBy()
 
     def test_subtract(self):
         sc = SparkContext()
@@ -164,18 +140,6 @@ class TestRDD():
         result_rdd = rdd1.subtractByKey(rdd2)
         assert result_rdd.count() == 0
 
-    def test_cartesian(self):
-        with pytest.raises(NotImplementedError):
-            self.rdd.cartesian()
-
-    def test_repartition(self):
-        with pytest.raises(NotImplementedError):
-            self.rdd.repartition()
-
-    def test_coalesce(self):
-        with pytest.raises(NotImplementedError):
-            self.rdd.coalesce()
-    
     # -------
     # Actions
     # -------
@@ -215,9 +179,6 @@ class TestRDD():
     def test_variance(self):
         assert self.rdd.values().variance() == pytest.approx(5.55, 0.01)
 
-    def test_histogram(self):
-        with pytest.raises(NotImplementedError):
-            self.rdd.histogram(3)
 
     def test_first(self):
         assert self.rdd.first() == ('a', 7)
@@ -242,12 +203,57 @@ class TestRDD():
             lines = f.read().splitlines()
             assert lines[0] == 'a,7'
         os.remove(filename)
-    
-    def test_saveAsHadoopFile(self):
-        with pytest.raises(NotImplementedError):
-            self.rdd.saveAsHadoopFile()
 
     def test_collectAsMap(self):
         res = self.rdd.collectAsMap()
         assert len(res.keys()) == 2
         assert res['b'] == 2
+
+    ###############
+    # NOT SUPPORTED
+    ###############
+
+    def test_flatMapValues(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.flatMapValues(lambda x: x)
+
+    def test_aggregate(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.aggregate()
+    
+    def test_aggregateByKey(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.aggregateByKey()
+    
+    def test_fold(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.fold()
+
+    def test_foldByKey(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.foldByKey()
+
+    def test_keyBy(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.keyBy()
+
+    def test_saveAsHadoopFile(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.saveAsHadoopFile()
+
+    def test_histogram(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.histogram(3)
+
+    def test_cartesian(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.cartesian()
+
+    def test_repartition(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.repartition()
+
+    def test_coalesce(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.coalesce()
+    
