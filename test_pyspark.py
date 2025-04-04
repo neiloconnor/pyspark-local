@@ -164,6 +164,18 @@ class TestRDD():
         result_rdd = rdd1.subtractByKey(rdd2)
         assert result_rdd.count() == 0
 
+    def test_cartesian(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.cartesian()
+
+    def test_repartition(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.repartition()
+
+    def test_coalesce(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.coalesce()
+    
     # -------
     # Actions
     # -------
@@ -230,6 +242,10 @@ class TestRDD():
             lines = f.read().splitlines()
             assert lines[0] == 'a,7'
         os.remove(filename)
+    
+    def test_saveAsHadoopFile(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.saveAsHadoopFile()
 
     def test_collectAsMap(self):
         res = self.rdd.collectAsMap()

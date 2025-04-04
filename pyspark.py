@@ -189,6 +189,16 @@ class RDD():
     def subtractByKey(self, other_rdd):
         remainder = [x for x in self.dataset if x[0] not in other_rdd.keys().collect()]
         return RDD(remainder)
+    
+    def cartesian(self, *args, **kwargs):
+        raise NotImplementedError('cartesian is not currently supported by pyspark-local') 
+
+    def repartition(self, *args, **kwargs):
+        raise NotImplementedError('repartition is not currently supported by pyspark-local') 
+
+    def coalesce(self, *args, **kwargs):
+        raise NotImplementedError('coalesce is not currently supported by pyspark-local') 
+
 
     # Actions
     def collect(self):
@@ -260,6 +270,9 @@ class RDD():
                 else: 
                     line = str(obj)
                 f.write(line + '\n')
+
+    def saveAsHadoopFile(self, *args, **kwargs):
+        raise NotImplementedError('saveAsHadoopFile is not currently supported by pyspark-local') 
 
     def collectAsMap(self):
         # Return key,value pairs as a dictionary
