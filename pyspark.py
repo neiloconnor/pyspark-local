@@ -71,6 +71,9 @@ class RDD():
             for v in l:
                 res.append(v)
         return RDD(res)
+    
+    def flatMapValues(self, f):        
+        raise NotImplementedError('flatMapValues is not currently supported by pyspark-local') 
 
     def mapValues(self, f):
         # Pass each value in the key-value pair RDD through a map function without changing the keys

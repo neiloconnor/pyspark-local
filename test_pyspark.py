@@ -60,6 +60,10 @@ class TestRDD():
         res = self.rdd.flatMap(lambda x: x).collect()
         assert res == ['a', 7, 'a', 2, 'b', 2]
 
+    def test_flatMapValues(self):
+        with pytest.raises(NotImplementedError):
+            self.rdd.flatMapValues(lambda x: x)
+
     def test_mapValues(self):
         res = self.rdd.groupByKey().mapValues(sum).collect()
     
